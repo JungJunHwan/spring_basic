@@ -73,4 +73,22 @@ public class HelloController {
         model.addAttribute("modelName", inputName);
         return "helloworld2";
     }
+
+//    case7. 화면을 return 해주되, 객체를 화면에 동적으로 세팅
+    @GetMapping("/model-param2")
+    public String modelParam2(@ModelAttribute Hello hello, Model model){
+        model.addAttribute("modelHello", hello);
+        return "helloworld3";
+    }
+
+//    case8. pathvariable 방식을 통해 사용자로부터 값을 받아 화면 return
+//    형식 : /hello/model-path/hongildong
+//    예시 : /author/detail/1
+//    pathvariable 방식은 url을 통해 자원구조를 명확하게 표현할때 사용.(좀 더 restful한 방식)
+    @GetMapping("/model-path/{inputName}")
+    public String modelPath(@PathVariable String inputName, Model model){
+        model.addAttribute("modelName", inputName);
+        return "helloworld2";
+    }
 }
+
