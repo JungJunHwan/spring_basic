@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>member detail</title>
+</head>
+<body>
+    <div th:replace="member/header::headerFragment"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>email</th>
+                <th>password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>hong1</td>
+                <td>hong1@naver.com</td>
+                <td>1q2w3e4r!</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
