@@ -147,7 +147,6 @@ public class HelloController {
 //      js를 통한 form형식도 마찬가지로 ?name=xxx&email=yyy
     @PostMapping("/axios-form-view")
     @ResponseBody
-
     public String axiosFormPost(Hello hello){
         System.out.println(hello);
         return "ok";
@@ -163,7 +162,6 @@ public class HelloController {
     //      js를 통한 form형식도 마찬가지로 ?name=xxx&email=yyy
     @PostMapping("/axios-form-file-view")
     @ResponseBody
-
     public String axiosFormFilePost(Hello hello, @RequestParam(value = "photo")MultipartFile photo){
         System.out.println(hello);
 
@@ -179,7 +177,6 @@ public class HelloController {
     //      js를 통한 form형식도 마찬가지로 ?name=xxx&email=yyy
     @PostMapping("/axios-form-multi-file-view")
     @ResponseBody
-
     public String axiosFormMultiFilePost(Hello hello, @RequestParam(value = "photos") List<MultipartFile> photos){
         System.out.println(hello);
         for (int i=0; i<photos.size(); i++){
