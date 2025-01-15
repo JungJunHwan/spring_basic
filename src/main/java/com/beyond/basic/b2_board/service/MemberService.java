@@ -1,14 +1,20 @@
 package com.beyond.basic.b2_board.service;
 
+import com.beyond.basic.b2_board.domain.Member;
 import com.beyond.basic.b2_board.dtos.MemberCreateDto;
 import com.beyond.basic.b2_board.dtos.MemberDetailDto;
 import com.beyond.basic.b2_board.dtos.MemberListRes;
-import com.beyond.basic.b2_board.repository.MemberJdbcRepository;
+//import com.beyond.basic.b2_board.repository.MemberJdbcRepository;
+//import com.beyond.basic.b2_board.repository.MemberMyBatisRepository;
+import com.beyond.basic.b2_board.dtos.MemberUpdatePwDto;
+import com.beyond.basic.b2_board.repository.MemberJpaRepository;
 import com.beyond.basic.b2_board.repository.MemberMemoryRepository;
+import com.beyond.basic.b2_board.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +23,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class MemberService {
     @Autowired
-    MemberJdbcRepository memberRepository;
+    private MemberRepository memberRepository;
 
     public List<MemberListRes> findAll(){
 //        List<MemberListRes> memberListRes = new ArrayList<>();
@@ -47,5 +53,12 @@ public class MemberService {
 
 //        위의 코드를 아래의 코드로 축소 가능
         return memberRepository.findById(id).orElseThrow(()->new NoSuchElementException("없는 ID입니다")).detailFromEntity();
+    }
+
+    public void updatePassword(MemberUpdatePwDto memberUpdatePwDto){
+        Member member = memberRepository.findByEmail(memberUpdatePwDto.getEmail()).orElseThrow(()->new EntityNotFoundException("없는 사용자입니다"));
+        member.updatePassword(memberUpdatePwDto.getNewPassword());
+//        기존 객체를 조회 후에 다시 save 할 경우 insert가 아니라 update 실행
+        memberRepository.save(member);
     }
 }

@@ -34,7 +34,7 @@ public class MemberController {
     }
 
 ////    의존성 주입 방법 3. RequiredArgsConstructor 어노테이션 사용 방법
-////    RequiredArgsConstructor : 반드시 초기화 되어야 하는 필드(final 키워드 등)를 대상으로 생성자를 자동으로 만들어주는 어노테이션
+////    @RequiredArgsConstructor : 반드시 초기화 되어야 하는 필드(final 키워드 등)를 대상으로 생성자를 자동으로 만들어주는 어노테이션
 //    private final MemberService memberService;
 
 //    홈 화면
