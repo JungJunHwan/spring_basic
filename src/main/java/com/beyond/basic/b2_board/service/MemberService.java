@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -46,13 +47,24 @@ public class MemberService {
         memberRepository.save(memberCreateDto.toEntity());
     }
 
-    public MemberDetailDto findById(Long id) throws NoSuchElementException, RuntimeException{ //checked Exception이 아니지만 명시하는것이 좋음
+    public Member save2(MemberCreateDto memberCreateDto) throws IllegalArgumentException{
+        if(memberCreateDto.getPassword().length() < 8) {
+            throw new IllegalArgumentException("비밀번호 길이가 짧습니다");
+        }
+        else if (memberRepository.findByEmail(memberCreateDto.getEmail()).isPresent()){
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다");
+        }
+        Member member = memberRepository.save(memberCreateDto.toEntity());
+        return member;
+    }
+
+    public MemberDetailDto findById(Long id) throws EntityNotFoundException, RuntimeException{ //checked Exception이 아니지만 명시하는것이 좋음
 //        Optional<Member> optionalMember = memberRepository.findById(id);
 //        Member member = optionalMember.orElseThrow(()->new NoSuchElementException("없는 ID입니다"));
 //        return member.detailFromEntity();
 
 //        위의 코드를 아래의 코드로 축소 가능
-        return memberRepository.findById(id).orElseThrow(()->new NoSuchElementException("없는 ID입니다")).detailFromEntity();
+        return memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("없는 ID입니다")).detailFromEntity();
     }
 
     public void updatePassword(MemberUpdatePwDto memberUpdatePwDto){
@@ -60,5 +72,11 @@ public class MemberService {
         member.updatePassword(memberUpdatePwDto.getNewPassword());
 //        기존 객체를 조회 후에 다시 save 할 경우 insert가 아니라 update 실행
         memberRepository.save(member);
+    }
+
+    public void delete(Long id){
+//        memberRepository.deleteById(id);
+        Member member = memberRepository.findById(id).orElseThrow(()->new EntityNotFoundException("없는 id입니다"));
+        memberRepository.delete(member);
     }
 }
