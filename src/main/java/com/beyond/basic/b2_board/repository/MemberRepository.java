@@ -1,6 +1,5 @@
 package com.beyond.basic.b2_board.repository;
 
-
 import com.beyond.basic.b2_board.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
