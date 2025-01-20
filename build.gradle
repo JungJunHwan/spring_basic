@@ -32,6 +32,12 @@ dependencies {
 //	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+//	jsp 관련 의존성 추가
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+//	jstl을 위한 의존성 : jstl은 jsp 화면 안에서 자바 문법을 쓰기 위한 기술
+	implementation 'javax.servlet:jstl'
+//	swagger 사용을 위한 의존성 추가
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 }
 
 tasks.named('test') {

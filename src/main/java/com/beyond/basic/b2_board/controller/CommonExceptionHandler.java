@@ -25,7 +25,7 @@ public class CommonExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> argNotValid(IllegalArgumentException e){
+    public ResponseEntity<?> argNotValid(MethodArgumentNotValidException e){
         return new ResponseEntity<>(new CommonErrorDto(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
